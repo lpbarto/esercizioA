@@ -92,13 +92,16 @@ class NodeRN(Node):
 class RN:
     def __init__(self):
         self.root = None
-    def setRoot(self, key):
-        self.root = NodeRN(key)
+    def setRoot(self, node):
+        self.root = node
+        #self.root = NodeRN(key)
         self.root.color = BLACK
+
 
     def insert(self, key):
         if (self.root is None):
-            self.setRoot(key)
+            node = NodeRN(key)
+            self.setRoot(node)
         else:
             self.insertNode(self.root, key)
 
@@ -121,7 +124,7 @@ class RN:
                 self.insertFixup(currentNode.right)
 
     def insertFixup(self, currentNode):
-        while currentNode.p.color == RED:
+        while currentNode.p is not None and currentNode.p.color == RED:
             if currentNode.p == currentNode.p.p.left :
                 uncle = currentNode.p.p.right
                 #if uncle is not None:
@@ -133,9 +136,11 @@ class RN:
                 elif currentNode == currentNode.p.right:
                     currentNode = currentNode.p
                     self.leftRotate(currentNode)
-                currentNode.p.setColor(BLACK)
-                currentNode.p.p.setColor(RED)
-                self.rightRotate(currentNode.p.p)
+                if currentNode.p is not None:
+                    currentNode.p.setColor(BLACK)
+                    if currentNode.p.p is not None:
+                        currentNode.p.p.setColor(RED)
+                        self.rightRotate(currentNode.p.p)
             else:
                 uncle = currentNode.p.p.left
                 #if uncle is not None:
@@ -147,9 +152,11 @@ class RN:
                 elif currentNode == currentNode.p.left:
                     currentNode = currentNode.p
                     self.rightRotate(currentNode)
-                currentNode.p.setColor(BLACK)
-                currentNode.p.p.setColor(RED)
-                self.leftRotate(currentNode.p.p)
+                if currentNode.p is not None:
+                    currentNode.p.setColor(BLACK)
+                    if currentNode.p.p is not None:
+                        currentNode.p.p.setColor(RED)
+                        self.leftRotate(currentNode.p.p)
         self.root.setColor(BLACK)
 
     def leftRotate(self, x):
