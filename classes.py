@@ -201,7 +201,7 @@ class RN:
                 return
             if (v.left is not None):
                 _inorder(v.left)
-            print(v.key)
+            print("%d %s" % (v.key, v.getColor()))
             if (v.right is not None):
                 _inorder(v.right)
         _inorder(self.root)
