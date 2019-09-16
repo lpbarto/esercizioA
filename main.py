@@ -1,5 +1,8 @@
 from classes import RN, ABR
 import numpy as np
+from timeit import default_timer as timer
+import sys
+sys.setrecursionlimit(10000)
 
 def random_list(n):
     # Permutazione casuale dei primi n interi
@@ -9,39 +12,44 @@ def random_list(n):
 
 def main():
     tree = ABR()
-    tree.insert(4)
-    tree.insert(5)
-
-    A = random_list(100)
-    for x in A:
+    startInsert = timer()
+    for x in range(0, 9990, 1):
+        # print(x)
         tree.insert(x)
+    endInsert = timer()
+    t = endInsert - startInsert
+    print("tempo inserimento ordinato %f" % t)
 
-    #for x in range(20, 10, -1):
-     #   tree.insert(x)
-
-    print(tree.find(5))
-    print(tree.find(2))
-    print(tree.findMax(tree.root))
-    tree.inorder()
-
-    treeRN = RN()
-    treeRN.insert(5)
-    treeRN.insert(4)
-
-    #treeRN.insert(3)
-   # treeRN.insert(1)
-   # treeRN.insert(19)
+    treeA = ABR()
+    A = random_list(9990)
+    startInsertRandom = timer()
+    for x in A:
+        # print(x)
+        treeA.insert(x)
+    endInsertRandom = timer()
+    t = endInsertRandom - startInsertRandom
+    print("tempo inserimento random %f" % t)
 
 
+    treeRNa = RN()
+    startInsertRnOrdinato = timer()
+    for x in range(0, 9990, 1):
+      treeRNa.insert(x)
+    endInsertRnOrdinato = timer()
+    t = endInsertRnOrdinato - startInsertRnOrdinato
+    print("tempo inserimento RN ordinato %f" % t)
 
-    for x in range(20, 10, -1):
-      treeRN.insert(x)
+
+    treeRNb = RN()
+    A = random_list(9990)
+    startInsertRnRandom= timer()
+    for x in A:
+        treeRNb.insert(x)
+    endInsertRnRandom = timer()
+    t = endInsertRnRandom - startInsertRnRandom
+    print("tempo inserimento RN random %f" % t)
 
 
-    print(treeRN.find(5))
-    print(treeRN.find(2))
-    print(treeRN.findMax(treeRN.root))
-    treeRN.inorder()
 
 
 
