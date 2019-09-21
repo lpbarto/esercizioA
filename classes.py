@@ -71,12 +71,31 @@ class ABR:
                 _inorder(v.right)
         _inorder(self.root)
 
+    #
+    #versione iterativa
+    #
+
+    def insertSortedNode(self, key):
+        if self.root is None:
+            self.setRoot(key)
+            return
+        currentNode = self.root
+        p = currentNode
+        while currentNode is not None:
+            p = currentNode
+            if key <= currentNode.key:
+                currentNode = currentNode.left
+            else:
+                currentNode = currentNode.right
+        node = Node(key)
+        if key <= p.key:
+            p.left = node
+        else:
+            p.right = node
+
 class NodeRN(Node):
     def __init__(self, key):
         super().__init__(key)
-        #self.key = key
-        #self.left = None
-        #self.right = None
         self.color = None
         self.p = None
 
@@ -94,7 +113,6 @@ class RN:
         self.root = None
     def setRoot(self, node):
         self.root = node
-        #self.root = NodeRN(key)
         self.root.color = BLACK
 
 
@@ -163,6 +181,7 @@ class RN:
 
     def leftRotate(self, x):
         y = x.right
+        
         x.right = y.left
         if y.left is not None:
             y.left.p = x
