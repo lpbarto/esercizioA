@@ -1,7 +1,7 @@
 import test
 
 def main():
-    nmax = 31000
+    nmax = 11000
     test.testInsert(1000, nmax, 1000)
 
 if __name__ == "__main__":
